@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71652D6F184CF43D00868D07 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71652D6E184CF43D00868D07 /* ProfileViewController.m */; };
+		71652D72184CF7C800868D07 /* Passport.m in Sources */ = {isa = PBXBuildFile; fileRef = 71652D71184CF7C800868D07 /* Passport.m */; };
+		71652D75184CFFDA00868D07 /* SetupAppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71652D74184CFFDA00868D07 /* SetupAppointmentViewController.m */; };
 		718F6C981847A1D40035F79F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718F6C971847A1D40035F79F /* Foundation.framework */; };
 		718F6C9A1847A1D40035F79F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718F6C991847A1D40035F79F /* CoreGraphics.framework */; };
 		718F6C9C1847A1D40035F79F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718F6C9B1847A1D40035F79F /* UIKit.framework */; };
@@ -33,6 +36,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		71652D6D184CF43D00868D07 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		71652D6E184CF43D00868D07 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		71652D70184CF7C800868D07 /* Passport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Passport.h; sourceTree = "<group>"; };
+		71652D71184CF7C800868D07 /* Passport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Passport.m; sourceTree = "<group>"; };
+		71652D73184CFFDA00868D07 /* SetupAppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupAppointmentViewController.h; sourceTree = "<group>"; };
+		71652D74184CFFDA00868D07 /* SetupAppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupAppointmentViewController.m; sourceTree = "<group>"; };
 		718F6C941847A1D40035F79F /* Appointment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Appointment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		718F6C971847A1D40035F79F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		718F6C991847A1D40035F79F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -114,6 +123,12 @@
 				718F6CA91847A1D40035F79F /* Images.xcassets */,
 				718F6C9E1847A1D40035F79F /* Supporting Files */,
 				718F6CC61847A33A0035F79F /* Main.storyboard */,
+				71652D6D184CF43D00868D07 /* ProfileViewController.h */,
+				71652D6E184CF43D00868D07 /* ProfileViewController.m */,
+				71652D70184CF7C800868D07 /* Passport.h */,
+				71652D71184CF7C800868D07 /* Passport.m */,
+				71652D73184CFFDA00868D07 /* SetupAppointmentViewController.h */,
+				71652D74184CFFDA00868D07 /* SetupAppointmentViewController.m */,
 			);
 			path = Appointment;
 			sourceTree = "<group>";
@@ -244,7 +259,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				718F6CA81847A1D40035F79F /* AppDelegate.m in Sources */,
+				71652D72184CF7C800868D07 /* Passport.m in Sources */,
+				71652D6F184CF43D00868D07 /* ProfileViewController.m in Sources */,
 				718F6CA41847A1D40035F79F /* main.m in Sources */,
+				71652D75184CFFDA00868D07 /* SetupAppointmentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +463,7 @@
 				718F6CC21847A1D40035F79F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		718F6CC31847A1D40035F79F /* Build configuration list for PBXNativeTarget "AppointmentTests" */ = {
 			isa = XCConfigurationList;
@@ -453,6 +472,7 @@
 				718F6CC51847A1D40035F79F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
