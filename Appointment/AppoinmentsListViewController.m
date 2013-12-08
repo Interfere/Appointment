@@ -10,10 +10,13 @@
 
 #import "Appointment.h"
 #import "AppointmentViewController.h"
+#import <CoreData/CoreData.h>
 
 @interface AppoinmentsListViewController ()
 
 @property (nonatomic, strong) NSArray* appoinments;
+
+//- (void)fetchAppointments;
 
 @end
 
@@ -37,6 +40,13 @@
     app3.subject = @"Elton John";
     app3.meetingDate = [app2.meetingDate dateByAddingTimeInterval:[app2.duration doubleValue]];
     app3.duration = @(30 * 60.0);
+    
+//    NSError* error;
+//    if(![context save:&error])
+//    {
+//        NSLog(@"Unresolved error: %@", error);
+//        abort();
+//    }
     
     self.appoinments = @[ app1, app2, app3 ];
 }
@@ -82,41 +92,23 @@
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)fetchAppointments
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    __weak id applicationDelegate = [UIApplication sharedApplication].delegate;
+    NSManagedObjectContext *context = [applicationDelegate managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Appointment" inManagedObjectContext:context];
+    [request setEntity:entity];
+    
+    NSSortDescriptor *sorting = [[NSSortDescriptor alloc] initWithKey:@"meetingDate" ascending:NO];
+    [request setSortDescriptors:@[sorting]];
+    
+    NSError *error = nil;
+    self.appoinments = [context executeFetchRequest:request error:&error];
+    if(error)
+    {
+        NSLog(@"Failed to fetch appointments: %@", error);
+    }
 }
 */
 
