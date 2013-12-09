@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Appointment : NSObject
+@interface Appointment : NSManagedObject
 
 @property (nonatomic, strong) NSString *subject;
 
@@ -16,6 +17,6 @@
 
 @property (nonatomic, strong) NSNumber *duration;
 
-+ (instancetype)appointment;
++ (instancetype)appointmentWithContext:(NSManagedObjectContext *)ctx;
 
 @end

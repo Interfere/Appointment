@@ -10,10 +10,13 @@
 
 @implementation Appointment
 
-+ (instancetype)appointment
+@dynamic subject;
+@dynamic meetingDate;
+@dynamic duration;
+
++ (instancetype)appointmentWithContext:(NSManagedObjectContext *)ctx
 {
-    // 'self' points to Class object
-    return [[self alloc] init];
+    return [NSEntityDescription insertNewObjectForEntityForName:@"Appointments" inManagedObjectContext:ctx];
 }
 
 @end

@@ -23,6 +23,8 @@
 		718F6CBB1847A1D40035F79F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 718F6CB91847A1D40035F79F /* InfoPlist.strings */; };
 		718F6CBD1847A1D40035F79F /* AppointmentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 718F6CBC1847A1D40035F79F /* AppointmentTests.m */; };
 		718F6CC71847A33A0035F79F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 718F6CC61847A33A0035F79F /* Main.storyboard */; };
+		718FAFF518561B9F0092A01A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 718FAFF418561B9F0092A01A /* CoreData.framework */; };
+		718FAFF818561BC20092A01A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 718FAFF618561BC20092A01A /* Model.xcdatamodeld */; };
 		71921BF91850DAA1006A6CE4 /* AppoinmentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71921BF81850DAA1006A6CE4 /* AppoinmentsListViewController.m */; };
 		71921BFC1850DBAB006A6CE4 /* Appointment.m in Sources */ = {isa = PBXBuildFile; fileRef = 71921BFB1850DBAB006A6CE4 /* Appointment.m */; };
 		71921BFF1850EF42006A6CE4 /* AppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71921BFE1850EF42006A6CE4 /* AppointmentViewController.m */; };
@@ -62,6 +64,8 @@
 		718F6CBA1847A1D40035F79F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		718F6CBC1847A1D40035F79F /* AppointmentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointmentTests.m; sourceTree = "<group>"; };
 		718F6CC61847A33A0035F79F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		718FAFF418561B9F0092A01A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		718FAFF718561BC20092A01A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		71921BF71850DAA1006A6CE4 /* AppoinmentsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppoinmentsListViewController.h; sourceTree = "<group>"; };
 		71921BF81850DAA1006A6CE4 /* AppoinmentsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppoinmentsListViewController.m; sourceTree = "<group>"; };
 		71921BFA1850DBAB006A6CE4 /* Appointment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appointment.h; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				718FAFF518561B9F0092A01A /* CoreData.framework in Frameworks */,
 				718F6C9A1847A1D40035F79F /* CoreGraphics.framework in Frameworks */,
 				718F6C9C1847A1D40035F79F /* UIKit.framework in Frameworks */,
 				718F6C981847A1D40035F79F /* Foundation.framework in Frameworks */,
@@ -116,6 +121,7 @@
 		718F6C961847A1D40035F79F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				718FAFF418561B9F0092A01A /* CoreData.framework */,
 				718F6C971847A1D40035F79F /* Foundation.framework */,
 				718F6C991847A1D40035F79F /* CoreGraphics.framework */,
 				718F6C9B1847A1D40035F79F /* UIKit.framework */,
@@ -144,6 +150,7 @@
 				71921BFB1850DBAB006A6CE4 /* Appointment.m */,
 				71921BFD1850EF42006A6CE4 /* AppointmentViewController.h */,
 				71921BFE1850EF42006A6CE4 /* AppointmentViewController.m */,
+				718FAFF618561BC20092A01A /* Model.xcdatamodeld */,
 			);
 			path = Appointment;
 			sourceTree = "<group>";
@@ -278,6 +285,7 @@
 				71652D72184CF7C800868D07 /* Passport.m in Sources */,
 				71652D6F184CF43D00868D07 /* ProfileViewController.m in Sources */,
 				71921BFF1850EF42006A6CE4 /* AppointmentViewController.m in Sources */,
+				718FAFF818561BC20092A01A /* Model.xcdatamodeld in Sources */,
 				71921BF91850DAA1006A6CE4 /* AppoinmentsListViewController.m in Sources */,
 				718F6CA41847A1D40035F79F /* main.m in Sources */,
 				71652D75184CFFDA00868D07 /* SetupAppointmentViewController.m in Sources */,
@@ -493,6 +501,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		718FAFF618561BC20092A01A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				718FAFF718561BC20092A01A /* Model.xcdatamodel */,
+			);
+			currentVersion = 718FAFF718561BC20092A01A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 718F6C8C1847A1D40035F79F /* Project object */;
 }
