@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		716128DD1857B0D70088B2AD /* bar-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 716128D51857B0D70088B2AD /* bar-background@2x.png */; };
+		716128DF1857B0D70088B2AD /* bar-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 716128D71857B0D70088B2AD /* bar-highlight@2x.png */; };
+		716128E11857B0D70088B2AD /* handle-hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 716128D91857B0D70088B2AD /* handle-hover@2x.png */; };
+		716128E31857B0D70088B2AD /* handle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 716128DB1857B0D70088B2AD /* handle@2x.png */; };
+		716128E61857B0FB0088B2AD /* UIRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 716128E51857B0FB0088B2AD /* UIRangeSlider.m */; };
 		71652D6F184CF43D00868D07 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71652D6E184CF43D00868D07 /* ProfileViewController.m */; };
 		71652D72184CF7C800868D07 /* Passport.m in Sources */ = {isa = PBXBuildFile; fileRef = 71652D71184CF7C800868D07 /* Passport.m */; };
 		71652D75184CFFDA00868D07 /* SetupAppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71652D74184CFFDA00868D07 /* SetupAppointmentViewController.m */; };
@@ -41,6 +46,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		716128D51857B0D70088B2AD /* bar-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bar-background@2x.png"; sourceTree = "<group>"; };
+		716128D71857B0D70088B2AD /* bar-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bar-highlight@2x.png"; sourceTree = "<group>"; };
+		716128D91857B0D70088B2AD /* handle-hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "handle-hover@2x.png"; sourceTree = "<group>"; };
+		716128DB1857B0D70088B2AD /* handle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "handle@2x.png"; sourceTree = "<group>"; };
+		716128E41857B0FB0088B2AD /* UIRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRangeSlider.h; sourceTree = "<group>"; };
+		716128E51857B0FB0088B2AD /* UIRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRangeSlider.m; sourceTree = "<group>"; };
 		71652D6D184CF43D00868D07 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		71652D6E184CF43D00868D07 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		71652D70184CF7C800868D07 /* Passport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Passport.h; sourceTree = "<group>"; };
@@ -99,6 +110,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		716128D31857B0D70088B2AD /* iOSRangeSliderImages */ = {
+			isa = PBXGroup;
+			children = (
+				716128D51857B0D70088B2AD /* bar-background@2x.png */,
+				716128D71857B0D70088B2AD /* bar-highlight@2x.png */,
+				716128D91857B0D70088B2AD /* handle-hover@2x.png */,
+				716128DB1857B0D70088B2AD /* handle@2x.png */,
+			);
+			path = iOSRangeSliderImages;
+			sourceTree = "<group>";
+		};
 		718F6C8B1847A1D40035F79F = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +155,9 @@
 		718F6C9D1847A1D40035F79F /* Appointment */ = {
 			isa = PBXGroup;
 			children = (
+				716128E41857B0FB0088B2AD /* UIRangeSlider.h */,
+				716128E51857B0FB0088B2AD /* UIRangeSlider.m */,
+				716128D31857B0D70088B2AD /* iOSRangeSliderImages */,
 				718F6CA61847A1D40035F79F /* AppDelegate.h */,
 				718F6CA71847A1D40035F79F /* AppDelegate.m */,
 				718F6CA91847A1D40035F79F /* Images.xcassets */,
@@ -261,7 +286,11 @@
 			files = (
 				718F6CA21847A1D40035F79F /* InfoPlist.strings in Resources */,
 				718F6CAA1847A1D40035F79F /* Images.xcassets in Resources */,
+				716128E11857B0D70088B2AD /* handle-hover@2x.png in Resources */,
 				718F6CC71847A33A0035F79F /* Main.storyboard in Resources */,
+				716128DD1857B0D70088B2AD /* bar-background@2x.png in Resources */,
+				716128DF1857B0D70088B2AD /* bar-highlight@2x.png in Resources */,
+				716128E31857B0D70088B2AD /* handle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				716128E61857B0FB0088B2AD /* UIRangeSlider.m in Sources */,
 				718F6CA81847A1D40035F79F /* AppDelegate.m in Sources */,
 				71921BFC1850DBAB006A6CE4 /* Appointment.m in Sources */,
 				71652D72184CF7C800868D07 /* Passport.m in Sources */,
