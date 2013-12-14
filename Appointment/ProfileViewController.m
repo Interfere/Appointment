@@ -8,8 +8,9 @@
 
 #import "ProfileViewController.h"
 #import "Passport.h"
+#import "ProfileCell.h"
 
-@interface ProfileViewController ()
+@interface ProfileViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) Passport *passport;
 
@@ -49,7 +50,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"ProfileCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    ProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
@@ -57,22 +58,26 @@
     {
         if(row == 0)
         {
-            cell.textLabel.text = self.passport.name;
+            cell.textLabel.text = @"Name:";
+            cell.textField.text = self.passport.name;
         }
         else
         {
-            cell.textLabel.text = self.passport.surname;
+            cell.textLabel.text = @"Surname:";
+            cell.textField.text = self.passport.surname;
         }
     }
     else
     {
         if(row == 0)
         {
-            cell.textLabel.text = self.passport.phoneNumber;
+            cell.textLabel.text = @"Phone:";
+            cell.textField.text = self.passport.phoneNumber;
         }
         else
         {
-            cell.textLabel.text = self.passport.jobTitle;
+            cell.textLabel.text = @"Job Title:";
+            cell.textField.text = self.passport.jobTitle;
         }
     }
     
@@ -89,6 +94,11 @@
     {
         return @"Job";
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    return [textField resignFirstResponder];
 }
 
 @end

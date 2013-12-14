@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7125AFC7185A2F9B004D943B /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7125AFC6185A2F9B004D943B /* ProfileCell.m */; };
 		716128DD1857B0D70088B2AD /* bar-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 716128D51857B0D70088B2AD /* bar-background@2x.png */; };
 		716128DF1857B0D70088B2AD /* bar-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 716128D71857B0D70088B2AD /* bar-highlight@2x.png */; };
 		716128E11857B0D70088B2AD /* handle-hover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 716128D91857B0D70088B2AD /* handle-hover@2x.png */; };
@@ -46,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7125AFC5185A2F9B004D943B /* ProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
+		7125AFC6185A2F9B004D943B /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
 		716128D51857B0D70088B2AD /* bar-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bar-background@2x.png"; sourceTree = "<group>"; };
 		716128D71857B0D70088B2AD /* bar-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bar-highlight@2x.png"; sourceTree = "<group>"; };
 		716128D91857B0D70088B2AD /* handle-hover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "handle-hover@2x.png"; sourceTree = "<group>"; };
@@ -165,6 +168,8 @@
 				718F6CC61847A33A0035F79F /* Main.storyboard */,
 				71652D6D184CF43D00868D07 /* ProfileViewController.h */,
 				71652D6E184CF43D00868D07 /* ProfileViewController.m */,
+				7125AFC5185A2F9B004D943B /* ProfileCell.h */,
+				7125AFC6185A2F9B004D943B /* ProfileCell.m */,
 				71652D70184CF7C800868D07 /* Passport.h */,
 				71652D71184CF7C800868D07 /* Passport.m */,
 				71652D73184CFFDA00868D07 /* SetupAppointmentViewController.h */,
@@ -319,6 +324,7 @@
 				71921BF91850DAA1006A6CE4 /* AppoinmentsListViewController.m in Sources */,
 				718F6CA41847A1D40035F79F /* main.m in Sources */,
 				71652D75184CFFDA00868D07 /* SetupAppointmentViewController.m in Sources */,
+				7125AFC7185A2F9B004D943B /* ProfileCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

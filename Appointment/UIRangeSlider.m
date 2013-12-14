@@ -31,7 +31,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        /*
         _minThumbOn = NO;
         _maxThumbOn = NO;
         
@@ -69,50 +68,54 @@
         _maxThumb.frame = CGRectMake(0, 0, self.frame.size.height, self.frame.size.height);
         _maxThumb.contentMode = UIViewContentModeCenter;
         [self addSubview:_maxThumb];
-         */
     }
     return self;
 }
 
-/*
+- (void)layoutSubviews
+{
+    _minThumb.center = CGPointMake([self xForValue:_selectedMinimumValue],
+                                   self.bounds.size.height/2);
+    _maxThumb.center = CGPointMake([self xForValue:_selectedMaximumValue],
+                                   self.bounds.size.height/2);
+    
+    _track.frame = CGRectMake(_minThumb.center.x,
+                              _track.frame.origin.y,
+                              _maxThumb.center.x - _minThumb.center.x,
+                              _track.frame.size.height);
+}
+
+
 -(CGFloat)xForValue:(float)value
 {
     return (self.frame.size.width-(_padding*2))*((value - _minimumValue) / (_maximumValue - _minimumValue))+_padding;
 }
-*/
 
-/*
 -(float)valueForX:(CGFloat)x
 {
     return (_maximumValue - _minimumValue) * (x - _padding) / (self.bounds.size.width - 2 * _padding) + _minimumValue;
 }
-*/
 
-/*
 -(BOOL) beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     CGPoint touchPoint = [touch locationInView:self];
-    if(CGRectContainsPoint(_minThumb.frame, touchPoint)){
-        _minThumbOn = YES;
-        [_minThumb setHighlighted:YES];
-    }else if(CGRectContainsPoint(_maxThumb.frame, touchPoint)){
+    if(CGRectContainsPoint(_maxThumb.frame, touchPoint)){
         _maxThumbOn = YES;
         [_maxThumb setHighlighted:YES];
+    } else if(CGRectContainsPoint(_minThumb.frame, touchPoint)){
+        _minThumbOn = YES;
+        [_minThumb setHighlighted:YES];
     }
     return YES;
 }
-*/
 
-/*
 -(void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event{
     _minThumbOn = NO;
     _maxThumbOn = NO;
     [_minThumb setHighlighted:NO];
     [_maxThumb setHighlighted:NO];
 }
-*/
 
-/*
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     if(!_minThumbOn && !_maxThumbOn){
@@ -133,6 +136,5 @@
     
     return YES;
 }
-*/
 
 @end
