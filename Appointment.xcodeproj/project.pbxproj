@@ -34,6 +34,7 @@
 		71921BF91850DAA1006A6CE4 /* AppoinmentsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71921BF81850DAA1006A6CE4 /* AppoinmentsListViewController.m */; };
 		71921BFC1850DBAB006A6CE4 /* Appointment.m in Sources */ = {isa = PBXBuildFile; fileRef = 71921BFB1850DBAB006A6CE4 /* Appointment.m */; };
 		71921BFF1850EF42006A6CE4 /* AppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71921BFE1850EF42006A6CE4 /* AppointmentViewController.m */; };
+		71CFC191185F5C7A008AC8E5 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71CFC190185F5C7A008AC8E5 /* Main-iPad.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		71921BFB1850DBAB006A6CE4 /* Appointment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Appointment.m; sourceTree = "<group>"; };
 		71921BFD1850EF42006A6CE4 /* AppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentViewController.h; sourceTree = "<group>"; };
 		71921BFE1850EF42006A6CE4 /* AppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentViewController.m; sourceTree = "<group>"; };
+		71CFC190185F5C7A008AC8E5 /* Main-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Main-iPad.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 				718F6CA91847A1D40035F79F /* Images.xcassets */,
 				718F6C9E1847A1D40035F79F /* Supporting Files */,
 				718F6CC61847A33A0035F79F /* Main.storyboard */,
+				71CFC190185F5C7A008AC8E5 /* Main-iPad.storyboard */,
 				71652D6D184CF43D00868D07 /* ProfileViewController.h */,
 				71652D6E184CF43D00868D07 /* ProfileViewController.m */,
 				7125AFC5185A2F9B004D943B /* ProfileCell.h */,
@@ -292,6 +295,7 @@
 				718F6CA21847A1D40035F79F /* InfoPlist.strings in Resources */,
 				718F6CAA1847A1D40035F79F /* Images.xcassets in Resources */,
 				716128E11857B0D70088B2AD /* handle-hover@2x.png in Resources */,
+				71CFC191185F5C7A008AC8E5 /* Main-iPad.storyboard in Resources */,
 				718F6CC71847A33A0035F79F /* Main.storyboard in Resources */,
 				716128DD1857B0D70088B2AD /* bar-background@2x.png in Resources */,
 				716128DF1857B0D70088B2AD /* bar-highlight@2x.png in Resources */,
@@ -446,7 +450,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Appointment/Appointment-Prefix.pch";
 				INFOPLIST_FILE = "Appointment/Appointment-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -459,7 +465,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Appointment/Appointment-Prefix.pch";
 				INFOPLIST_FILE = "Appointment/Appointment-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

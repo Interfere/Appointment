@@ -25,6 +25,8 @@
 
 @implementation AppoinmentsListViewController
 
+#pragma mark - View lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -98,6 +100,26 @@
     
     return cell;
 }
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Delete Cell"
+                                                            message:@"Are you sure?"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"No"
+                                                  otherButtonTitles:@"Yes", nil];
+        [alertView show];
+    }
+}
+
+#pragma mark - Core Data routines
 
 - (void)fetchAppointments
 {
