@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppoinmentsListViewController : UITableViewController
+@interface AppoinmentsListViewController : UITableViewController <UISplitViewControllerDelegate>
+
+@property (nonatomic, strong) NSArray* appoinments;
 
 @end

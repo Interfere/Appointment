@@ -15,9 +15,9 @@
 
 @interface AppoinmentsListViewController ()
 
-@property (nonatomic, strong) NSArray* appoinments;
-
 @property (readonly, nonatomic, weak) NSManagedObjectContext *managedObjectContext;
+
+@property (weak, nonatomic) UIPopoverController *pc;
 
 - (void)fetchAppointments;
 
@@ -26,6 +26,13 @@
 @implementation AppoinmentsListViewController
 
 #pragma mark - View lifecycle
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.splitViewController.delegate = self;
+}
 
 - (void)viewDidLoad
 {
@@ -117,6 +124,55 @@
                                                   otherButtonTitles:@"Yes", nil];
         [alertView show];
     }
+}
+
+- (AppointmentViewController *)getDetail
+{
+    UISplitViewController* split = self.splitViewController;
+    NSArray* controllers = split.viewControllers;
+    UINavigationController* navigation = (UINavigationController *)controllers[1];
+    AppointmentViewController* detail = (AppointmentViewController *)navigation.topViewController;
+    return detail;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    indexPath.row - selected cell
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        AppointmentViewController *detail = [self getDetail];
+        
+        detail.appointment = self.appoinments[indexPath.row];
+        [detail refresh];
+        
+        if(self.pc)
+        {
+            [self.pc dismissPopoverAnimated:YES];
+        }
+    }
+}
+
+#pragma mark - Split Controller Delegate
+
+- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
+{
+    AppointmentViewController *detail = [self getDetail];
+    
+    barButtonItem.title = @"Master";
+    barButtonItem.style = UIBarButtonItemStyleBordered;
+    
+    detail.navigationItem.leftBarButtonItem = barButtonItem;
+    
+    self.pc = pc;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    AppointmentViewController *detail = [self getDetail];
+    
+    detail.navigationItem.leftBarButtonItem = nil;
+    
+    self.pc = nil;
 }
 
 #pragma mark - Core Data routines

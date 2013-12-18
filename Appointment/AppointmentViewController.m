@@ -8,6 +8,8 @@
 
 #import "AppointmentViewController.h"
 
+#import "AppoinmentsListViewController.h"
+
 @interface AppointmentViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *subjectLabel;
@@ -19,10 +21,8 @@
 
 @implementation AppointmentViewController
 
-- (void)viewDidLoad
+- (void)refresh
 {
-    [super viewDidLoad];
-    
     self.subjectLabel.text = self.appointment.subject;
     
     NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -47,6 +47,23 @@
     {
         self.durationProgress.progress = progress;
     }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        UISplitViewController* splitVC = self.splitViewController;
+        NSArray* controllers = splitVC.viewControllers;
+        UINavigationController* navigation = (UINavigationController *)controllers[0];
+        AppoinmentsListViewController* master = (AppoinmentsListViewController *)navigation.topViewController;
+        
+        self.appointment = master.appoinments[0];
+    }
+    
+    [self refresh];
 }
 
 - (void)didReceiveMemoryWarning

@@ -14,4 +14,6 @@
 
 @property (weak, nonatomic) Appointment *appointment;
 
+- (void)refresh;
+
 @end
