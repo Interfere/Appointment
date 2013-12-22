@@ -15,15 +15,18 @@
 
 @interface AppoinmentsListViewController ()
 
-@property (readonly, nonatomic, weak) NSManagedObjectContext *managedObjectContext;
+@property (weak, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) UIPopoverController *pc;
+
+@property (strong, nonatomic, readonly) NSURLSession *session;
 
 - (void)fetchAppointments;
 
 @end
 
 @implementation AppoinmentsListViewController
+@synthesize session = _session;
 
 #pragma mark - View lifecycle
 
@@ -40,32 +43,32 @@
     
     [self fetchAppointments];
     
-    if([self.appoinments count] == 0)
-    {
-        Appointment* app1 = [Appointment appointmentWithContext:self.managedObjectContext];
-        app1.subject = @"The Beatles";
-        app1.meetingDate = [NSDate date];
-        app1.duration = @(90 * 60.0);
-        
-        Appointment* app2 = [Appointment appointmentWithContext:self.managedObjectContext];
-        app2.subject = @"The Clash";
-        app2.meetingDate = [NSDate dateWithTimeIntervalSinceNow:[app1.duration doubleValue]];
-        app2.duration = @(60 * 60.0);
-        
-        Appointment* app3 = [Appointment appointmentWithContext:self.managedObjectContext];
-        app3.subject = @"Elton John";
-        app3.meetingDate = [app2.meetingDate dateByAddingTimeInterval:[app2.duration doubleValue]];
-        app3.duration = @(30 * 60.0);
-        
-        NSError* error = nil;
-        if(![self.managedObjectContext save:&error])
-        {
-            NSLog(@"Unresolved error: %@", error);
-            abort();
-        }
-        
-        [self fetchAppointments];
-    }
+//    if([self.appoinments count] == 0)
+//    {
+//        Appointment* app1 = [Appointment appointmentWithContext:self.managedObjectContext];
+//        app1.subject = @"The Beatles";
+//        app1.meetingDate = [NSDate date];
+//        app1.duration = @(90 * 60.0);
+//        
+//        Appointment* app2 = [Appointment appointmentWithContext:self.managedObjectContext];
+//        app2.subject = @"The Clash";
+//        app2.meetingDate = [NSDate dateWithTimeIntervalSinceNow:[app1.duration doubleValue]];
+//        app2.duration = @(60 * 60.0);
+//        
+//        Appointment* app3 = [Appointment appointmentWithContext:self.managedObjectContext];
+//        app3.subject = @"Elton John";
+//        app3.meetingDate = [app2.meetingDate dateByAddingTimeInterval:[app2.duration doubleValue]];
+//        app3.duration = @(30 * 60.0);
+//        
+//        NSError* error = nil;
+//        if(![self.managedObjectContext save:&error])
+//        {
+//            NSLog(@"Unresolved error: %@", error);
+//            abort();
+//        }
+//
+//        [self fetchAppointments];
+//    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -173,6 +176,116 @@
     detail.navigationItem.leftBarButtonItem = nil;
     
     self.pc = nil;
+}
+
+#pragma mark - Refresh Handling
+
+- (NSURLSession *)session
+{
+    if(_session)
+    {
+        return _session;
+    }
+    
+    /* Create Session Config */
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSString *tmpPath = NSTemporaryDirectory();
+    NSString *cachePath = [tmpPath stringByAppendingPathComponent:@"sessiontemp.cache"];
+    NSURLCache* sessionCache = [[NSURLCache alloc] initWithMemoryCapacity:16000
+                                                             diskCapacity:1024*1024*20
+                                                                 diskPath:cachePath];
+    
+    configuration.URLCache = sessionCache;
+    configuration.requestCachePolicy = NSURLRequestUseProtocolCachePolicy;
+    
+    _session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    return _session;
+}
+
+- (void)handleData:(NSData *)data
+{
+//    NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    
+    NSError* error = nil;
+    NSDictionary* jsonDict = [NSJSONSerialization JSONObjectWithData:data
+                                                             options:0
+                                                               error:&error];
+    
+    if(!jsonDict)
+    {
+        NSLog(@"Error parsing: %@", error);
+        return ;
+    }
+    
+    NSArray* apoointments = jsonDict[@"appointments"];
+    NSMutableArray* tmp = [[NSMutableArray alloc] initWithArray:self.appoinments];
+    
+    for (NSDictionary* appointment in apoointments) {
+        Appointment* app = [Appointment appointmentWithContext:self.managedObjectContext];
+        app.subject = appointment[@"subject"];
+        app.meetingDate = [NSDate dateWithTimeIntervalSince1970:[appointment[@"meetingTime"] integerValue]];
+        app.duration = appointment[@"duration"];
+        
+        [tmp addObject:app];
+    }
+    
+    error = nil;
+    if(![self.managedObjectContext save:&error])
+    {
+        NSLog(@"Unresolved error: %@", error);
+        return ;
+    }
+    
+    [tmp sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        Appointment* app1 = obj1;
+        Appointment* app2 = obj2;
+        
+        return [app1.meetingDate compare:app2.meetingDate];
+    }];
+    
+    self.appoinments = tmp;
+    
+    [self.tableView performSelectorOnMainThread:@selector(reloadData)
+                                     withObject:nil waitUntilDone:NO];
+
+    
+//    [self.session finishTasksAndInvalidate];
+}
+
+- (IBAction)onRefreshPressed:(id)sender {
+    NSURL *url = [[NSURL alloc] initWithString:@"http://ftp.quantron-systems.com/public/alexey/appointments.json"];
+    
+    NSURLSessionTask* task = [self.session dataTaskWithURL:url
+                                         completionHandler:
+                              ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                  if(!error)
+                                  {
+                                      [self handleData:data];
+                                  }
+                                  else
+                                  {
+                                      NSLog(@"%@: %d. %@", error.domain, error.code, error.localizedDescription);
+                                  }
+                              }];
+    
+//    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url];
+//    request.HTTPMethod = @"POST";
+//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+//    NSString* postBody = @"v=1&cid=a428-83&tid=event";
+//    NSData* postData = [postBody dataUsingEncoding:NSASCIIStringEncoding];
+//    [request setHTTPBody:postData];
+//    
+//    NSURLSessionTask* task = [self.session dataTaskWithRequest:request
+//                                             completionHandler:
+//                              ^(NSData *data, NSURLResponse *response, NSError *error) {
+//                                  <#code#>
+//                              }];
+    
+    [task resume];
+    NSLog(@"Resume call");
 }
 
 #pragma mark - Core Data routines
