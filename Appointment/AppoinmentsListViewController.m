@@ -13,13 +13,17 @@
 #import "AppDelegate.h"
 #import <CoreData/CoreData.h>
 
-@interface AppoinmentsListViewController ()
+@interface AppoinmentsListViewController () <UIAlertViewDelegate>
 
 @property (weak, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 
 @property (weak, nonatomic) UIPopoverController *pc;
 
 @property (strong, nonatomic, readonly) NSURLSession *session;
+
+@property (strong, nonatomic) NSOperationQueue *queue;
+
+@property (strong, nonatomic) NSIndexPath *indexToDelete;
 
 - (void)fetchAppointments;
 
@@ -43,38 +47,41 @@
     
     [self fetchAppointments];
     
-//    if([self.appoinments count] == 0)
-//    {
-//        Appointment* app1 = [Appointment appointmentWithContext:self.managedObjectContext];
-//        app1.subject = @"The Beatles";
-//        app1.meetingDate = [NSDate date];
-//        app1.duration = @(90 * 60.0);
-//        
-//        Appointment* app2 = [Appointment appointmentWithContext:self.managedObjectContext];
-//        app2.subject = @"The Clash";
-//        app2.meetingDate = [NSDate dateWithTimeIntervalSinceNow:[app1.duration doubleValue]];
-//        app2.duration = @(60 * 60.0);
-//        
-//        Appointment* app3 = [Appointment appointmentWithContext:self.managedObjectContext];
-//        app3.subject = @"Elton John";
-//        app3.meetingDate = [app2.meetingDate dateByAddingTimeInterval:[app2.duration doubleValue]];
-//        app3.duration = @(30 * 60.0);
-//        
-//        NSError* error = nil;
-//        if(![self.managedObjectContext save:&error])
-//        {
-//            NSLog(@"Unresolved error: %@", error);
-//            abort();
-//        }
-//
-//        [self fetchAppointments];
-//    }
+    self.queue = [[NSOperationQueue alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onAppointmentAdded:)
+                                                 name:@"DID_ADD_APPOINTMENT"
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)onAppointmentAdded:(NSNotification *)notification
+{
+    [self fetchAppointments];
+    [self.tableView reloadData];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex)
+    {
+        // Delete from CoreData
+        // TODO: delete rom CoreData
+        __weak Appointment* app = self.appoinments[self.indexToDelete.row];
+        self.appoinments = [self.appoinments filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+            return ![app.subject isEqualToString:[evaluatedObject subject]];
+        }]];
+        [self.tableView deleteRowsAtIndexPaths:@[self.indexToDelete]
+                              withRowAnimation:UITableViewRowAnimationLeft];
+    }
+    
+    self.indexToDelete = nil;
 }
 
 #pragma mark - Table view data source
@@ -120,6 +127,7 @@
 {
     if(editingStyle == UITableViewCellEditingStyleDelete)
     {
+        self.indexToDelete = indexPath;
         UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Delete Cell"
                                                             message:@"Are you sure?"
                                                            delegate:self
@@ -255,7 +263,7 @@
 //    [self.session finishTasksAndInvalidate];
 }
 
-- (IBAction)onRefreshPressed:(id)sender {
+- (void)fetchDataFromServer {
     NSURL *url = [[NSURL alloc] initWithString:@"http://ftp.quantron-systems.com/public/alexey/appointments.json"];
     
     NSURLSessionTask* task = [self.session dataTaskWithURL:url
@@ -268,24 +276,46 @@
                                   else
                                   {
                                       NSLog(@"%@: %d. %@", error.domain, error.code, error.localizedDescription);
+                                      
+                                      UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Network Error"
+                                                                                          message:@"Failed to load data"
+                                                                                         delegate:nil
+                                                                                cancelButtonTitle:@"OK"
+                                                                                otherButtonTitles:nil];
+                                      
+                                      [alertView performSelectorOnMainThread:@selector(show)
+                                                                  withObject:nil
+                                                               waitUntilDone:NO];
                                   }
                               }];
     
-//    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url];
-//    request.HTTPMethod = @"POST";
-//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//    NSString* postBody = @"v=1&cid=a428-83&tid=event";
-//    NSData* postData = [postBody dataUsingEncoding:NSASCIIStringEncoding];
-//    [request setHTTPBody:postData];
-//    
-//    NSURLSessionTask* task = [self.session dataTaskWithRequest:request
-//                                             completionHandler:
-//                              ^(NSData *data, NSURLResponse *response, NSError *error) {
-//                                  <#code#>
-//                              }];
+    //    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url];
+    //    request.HTTPMethod = @"POST";
+    //    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    //    NSString* postBody = @"v=1&cid=a428-83&tid=event";
+    //    NSData* postData = [postBody dataUsingEncoding:NSASCIIStringEncoding];
+    //    [request setHTTPBody:postData];
+    //    
+    //    NSURLSessionTask* task = [self.session dataTaskWithRequest:request
+    //                                             completionHandler:
+    //                              ^(NSData *data, NSURLResponse *response, NSError *error) {
+    //                                  <#code#>
+    //                              }];
     
     [task resume];
     NSLog(@"Resume call");
+}
+
+- (IBAction)onRefreshPressed:(id)sender {
+    NSInvocationOperation* op = [[NSInvocationOperation alloc] initWithTarget:self
+                                                                     selector:@selector(fetchDataFromServer)
+                                                                       object:nil];
+    
+    op.completionBlock = ^{
+        NSLog(@"Refresh Done: %@", [NSThread isMainThread]?@"YES":@"NO");
+    };
+    
+    [self.queue addOperation:op];
 }
 
 #pragma mark - Core Data routines

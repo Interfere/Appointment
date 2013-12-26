@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Appointment.h"
 
 @interface SetupAppointmentViewController : UIViewController
+
+@property (nonatomic, weak) Appointment *appointment;
 
 @end
